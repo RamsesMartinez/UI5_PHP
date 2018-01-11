@@ -1,5 +1,5 @@
 <mvc:View xmlns:mvc="sap.ui.core.mvc" controllerName="UI5_PHP.controller.customers" xmlns="sap.m">
-    <Page showHeader="true" title="Lista de Clientes" showFooter="true" showNavButton="false">
+    <Page showHeader="true" title="{i18n>CustomersList}" showFooter="true" showNavButton="false">
         <content>
             <Table id="customers-table" width="100%" noDataText="No data" mode="None" showSeparators="All" growing="true" growingThreshold="20" growingScrollToLoad="true" items="{/result}">
                 <infoToolbar>
@@ -25,19 +25,19 @@
                 <columns>
                     <Column width="auto" hAlign="Left" vAlign="Top" minScreenWidth="Phone" demandPopin="false" popinDisplay="Inline" mergeDuplicates="false">
                         <header>
-                            <Text text="Cliente" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+                            <Text text="{i18n>Customer}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
                         </header>
                         <footer/>
                     </Column>
                     <Column width="auto" hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
                         <header>
-                            <Text text="Apellido" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+                            <Text text="{i18n>LastName}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
                         </header>
                         <footer/>
                     </Column>
                     <Column width="auto" hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
                         <header>
-                            <Text text="Email" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+                            <Text text="{i18n>Email}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
                         </header>
                         <footer/>
                     </Column>
