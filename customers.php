@@ -1,40 +1,43 @@
 <?php
 error_reporting(0);
 
-$serverName = "localhost";
-$userName = "root";
-$password = "Passw0rd";
-$dbName = "sakila";
+require_once ("DB.class.php");
 
-// Create connection
-$conn = new mysqli($serverName, $userName, $password, $dbName);
-// Check connection
-if ($conn->connect_error) {
-    printJSON($conn->connect_error, 1);
+$conn = Db::getInstance();
+
+$sql = "SELECT  customer_id AS CustomerID, first_name AS Name, last_name AS LastName, email AS Email FROM sakila.customer";
+$res = $conn->ejecutar($sql);
+
+if (mysqli_connect_errno()) {
+    printJSON(array("msg"=>mysqli_connect_error()), 1);
 } else {
-    getCustomers($conn);
+    printJSON(getCustomers($conn, $res),0 );
 }
 
-function getCustomers($conn) {
 
-    $sql = 'SELECT  customer_id AS CustomerID, first_name AS Name, last_name AS LastName, email AS Email FROM sakila.customer';
-
-    $res = mysqli_query($conn,$sql);
-
+/**
+ * @param DB $conn
+ * @param mysqli_result $sql
+ * @return array
+ */
+function getCustomers(DB $conn, mysqli_result $sql) {
     $result = array();
 
-    while ($row = mysqli_fetch_array($res)) {
-        array_push($result,
-            array("CustomerID"=>$row[0],'Name'=>$row[1],'LastName'=>$row[2],'Email'=>$row[3]));
+    while ($row = $conn->obtener_fila($sql, 0)) {
+        array_push($result, array("CustomerID"=>$row[0],'Name'=>$row[1],'LastName'=>$row[2],'Email'=>$row[3]));
     }
 
-    printJSON($result, 0);
+    return $result;
 }
 
-function printJSON($result, $code) {
+/**
+ * @param array $res
+ * @param int $code
+ */
+function printJSON(array $res, int $code) {
     echo json_encode(array(
-        "code" => $code,
-        "result" => $result)
+            "code" => $code,
+            "result" => $res)
     );
     exit(0);
 }
